@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    
+    <meta name="google-signin-client_id" content="244496231967-2jf7lel0i19vb0uo8moaf63uet2e28ks.apps.googleusercontent.com">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="/login.css">
+    <title>Grishma Foods Registration</title>
+</head>
+<body>
+    <div id="logreg-forms">
+        <form   class="form-signin"> 
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"> Sign Up </h1>
+            <div class="social-login"> 
+                <div id="my-signin2" ></div>
+                <button class="btn facebook-btn social-btn" type="button"><span><i class="fab fa-facebook-f"></i> Sign in with Facebook</span> </button>
+            </div>
+            <p style="text-align:center"> OR  </p>
+            
+            <input type="text" id="first_name" class="form-control" placeholder="First Name" required="" autofocus="">
+            <input type="text" id="last_name" class="form-control " placeholder="Last name" required="" autofocus="">
+            <span class="error"><p id="first_name_error"></p></span>
+            <span class="error"><p id="last_name_error"></p></span>
+            
+
+            <input type="email" id="email" class="form-control" placeholder="Email address" required autofocus="">
+            <span class="error"><p id="email_error"></p></span>
+                
+            <input type="password" id="password" class="form-control" placeholder="Password" required autofocus="">
+            <span class="error"><p id="password_error"></p></span>
+
+            <input type="password" id="confirm_password" class="form-control"  placeholder="Repeat Password" required autofocus="">
+            <span class="error"><p id="confirm_password_error"></p></span>
+            
+            <button id="main_register" class="btn btn-primary btn-block" type="button"><i class="fas fa-user-plus"></i> Sign Up</button>
+            <span class="error"><p id="register_error"></p></span>
+            <!-- <hr>
+            <button class="btn btn-success btn-block guest-btn" type="button"><span><i class="fas fa-angle-double-right"></i> View as Guest </span> </button>
+            -->
+        </form>            
+        <br>
+            
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="register.js"> </script>
+    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+</body>
+</html>

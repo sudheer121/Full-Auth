@@ -3,13 +3,14 @@ const pool = require("../../config/database");
 module.exports = {
     create : function(data,callback) {
         pool.query(
-        'insert into registration(email,password,first_name,last_name,phone_no) values(?,?,?,?,?)',
+        'insert into registration(email,password,first_name,last_name,phone_no,signin_type) values(?,?,?,?,?,?)',
         [
             data.email,
             data.password,
             data.first_name,
             data.last_name,
-            data.phone_no
+            data.phone_no,
+            data.signin_type
         ]
         ,
         function(error,result,fields){
@@ -22,6 +23,19 @@ module.exports = {
         ); // query
     },
     
+    getUserById : function(userid,callback) {
+        pool.query(
+        'select * from registration where uid=?',
+        [userid],
+        function(error,result,fields) {
+            if(error) {
+                return callback(error,null);
+            }
+            return callback(null,result[0])
+        }
+        ); //query 
+    }, 
+
     getUserByEmail : function(email,callback) {
         pool.query(
         'select * from registration where email=?',

@@ -14,7 +14,7 @@
     <meta name="google-signin-client_id" content="244496231967-2jf7lel0i19vb0uo8moaf63uet2e28ks.apps.googleusercontent.com">
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <link rel="stylesheet" href="/auth.css">
+    <link rel="stylesheet" href="/login.css">
     <title>Grishma Foods</title>
 </head>
 <body>
@@ -27,15 +27,20 @@
             </div>
             <p style="text-align:center"> OR  </p>
 
-            <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
-            <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Password" required="">
+            <input type="email" name="email" id="email" class="form-control" placeholder="Email address" required="" autofocus="">
+            <span class="error"><p id="email_error"></p></span>
+
+            <input type="password" name="password" id="password" class="form-control" placeholder="Password" required="">
+            <span class="error"><p id="password_error"></p></span>
+
             <button id="main_login" class="btn btn-success btn-block" type="button"><i class="fas fa-sign-in-alt"></i> Sign in</button>
             <div id="afterlogin"> </div>
-            <a href="#" id="forgot_pswd">Forgot password?</a>
+            <!-- <a href="#" id="forgot_pswd">Forgot password?</a> -->
             
+            <!--             
             <button class="btn btn-success btn-block guest-btn" type="button"><span><i class="fas fa-angle-double-right"></i> Login as Guest </span> </button>
+             -->
             <hr>
-            <!-- <p>Don't have an account!</p>  -->
             <button class="btn btn-primary btn-block" type="button" id="btn-signup"><i class="fas fa-user-plus"></i> Sign up New Account</button>
         </form>
 
@@ -108,7 +113,7 @@
           
         }
     </script> -->
-    <script src="auth.js"> </script>
+    <script src="login.js"> </script>
     <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
   
     <!-- <p style="text-align:center">

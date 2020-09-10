@@ -3,11 +3,11 @@ const jwtsalt = "secretsalt70395";
 
 module.exports = {
     checkToken: function(req,res,next){
-        const token = req.get("authorization");
+        var token = req.get("authorization");
+        //var token = req.cookies['grishmat'];
         if(token){
             token = token.slice(7);
             jwt.verify(token, jwtsalt, function(err,decoded){
-
                 if(err){
                     return res.json(
                         {
@@ -15,7 +15,7 @@ module.exports = {
                             message: "Invalid/Expired Token.."
                         });
                 } else {
-                    req.decode = decoded;
+                    req.decode = decoded; // attaching decoded info in req 
                     next(); 
                 }
             });

@@ -4,15 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <meta name="google-signin-client_id" content="244496231967-2jf7lel0i19vb0uo8moaf63uet2e28ks.apps.googleusercontent.com">
+    
     <title>Document</title>
 </head>
 <body>
-    <h1>Welcome to homepage</h1>
-    <script>
-        var x = document.cookie;
-        console.log("Cookie :" + x);
-    </script>
+    <h3>Welcome to homepage</h3>
+    <br>
+    <div id="my-signin2" ></div>
+    <h4 id="loggedInAs">Welcome guest</h4>
+    <hr>
+    <h4><a href="#" onclick="signOut();">Sign out</a></h4>
+
+    <script src="home.js"></script>
+    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 </body>
 </html>
