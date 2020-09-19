@@ -10,16 +10,49 @@
     <meta name="google-signin-client_id" content="244496231967-2jf7lel0i19vb0uo8moaf63uet2e28ks.apps.googleusercontent.com">
     
     <title>Document</title>
+    <style>
+        table, th, td {
+                 border: 1px solid black;
+                 padding : 5px; 
+                 text-align: center;
+        }
+        div {
+            text-align: center;
+        }
+        th {
+            color: red;
+        }
+    </style>
 </head>
 <body>
-    <h3>Welcome to homepage</h3>
-    <br>
-    <div id="my-signin2" ></div>
-    <h4 id="loggedInAs">Welcome guest</h4>
+    <div> 
+        <h3>Welcome to homepage</h3>
+        <br>
+        <div id="my-signin2" ></div>
+        <h4 id="loggedInAs">Welcome guest</h4>
+        <hr>
+        <form>
+            <label> Product Name </label>
+            <input type="text" id="product_name"> 
+            <label> Product ID </label>
+            <input type="text" id="product_id"> 
+            <label> Product Price </label>
+            <input type="text" id="product_price"> 
+            <button id="postpay" type = "button"> Pay </button> 
+        </form> 
+    </div>
     <hr>
-    <h4><a href="#" onclick="signOut();">Sign out</a></h4>
-
+    <div>
+        <button id="getpay" type = "button"> Get History </button> 
+        <br>
+        <div id="details"> </div>
+    </div>
+    <div> 
+        <hr>
+        <h4><a href="/" onclick="signOut();">Sign out</a></h4>
+    </div>
     <script src="home.js"></script>
     <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+    
 </body>
 </html>

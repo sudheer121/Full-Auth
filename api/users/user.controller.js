@@ -1,7 +1,9 @@
 const { 
 create,
 getUserByEmail,
-getUsers
+getUsers,
+gTD,
+addPayment,
 } = require("./user.service");
 
 const { genSaltSync, hashSync, compareSync } = require('bcryptjs'); // for hashing password before storing in db 
@@ -70,7 +72,78 @@ function checkUserExists(data){
     return myPromise; 
 }
 
+function getIdfromEmail(email){ 
+    const myPromise = new Promise((resolve, reject) => {  
+        getUserByEmail(email,function(err,result){
+            if(err) {
+                reject("Database Connection Error while checking if user exists");
+            }
+            else if(result) {
+                resolve(result.uid); 
+            } else {
+                reject("User does not exist in database");
+            }
+        }); 
+    });
+    return myPromise; 
+}
+
 module.exports = {
+    addPayment : function(req,res) {
+        var email = req.decode.resultdata.email;
+        var data = req.body;
+        getIdfromEmail(email).
+        then((result) => {
+            data.uid = result;
+            var currentdate = new Date(); 
+            var tdate_ = currentdate.getDate() + "/"+ (currentdate.getMonth()+1)  + "/"  + currentdate.getFullYear() ; 
+            var ttime_ =  currentdate.getHours() + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
+            data.tdate = tdate_;
+            data.ttime = ttime_; 
+            addPayment(data, function(err,result){
+                if(err) throw err; 
+                else {
+                    res.json({
+                        success : 1,
+                        message : "Transaction registered"
+                    });
+                }
+            });
+        })
+        .catch((err) => {
+            console.log("Error while registering transaction : "+err);
+            res.json({
+                success : 0,
+                message : "Couldn't process transaction"
+            });
+        }); 
+
+    },
+
+    getTD : function(req,res) {
+        var email = req.decode.resultdata.email;  
+        getIdfromEmail(email).
+        then((result) => {
+            gTD(result, function(err,result){
+                if(err) throw err; 
+                else {
+                    res.json({
+                        success : 1,
+                        message : "Fetch Successful",
+                        data : result
+                    });
+                }
+            });
+        })
+        .catch((err) => {
+            console.log("Error while all  transactions "+err);
+            res.json({
+                success : 0,
+                message : "Couldn't get transaction details"
+            });
+        }); 
+    },
+
     googleSignIn : function(req,res) {
         const body = req.body; 
         var id_token = body.id_token;
@@ -210,36 +283,11 @@ module.exports = {
             data : dataObj
         }); 
     },
-    googlleSignIn : function(req,res) {
-        const body = req.body; 
-        var id_token = body.id_token;
-        var client_id = body.client_id;
-        
-        const {OAuth2Client} = require('google-auth-library'); // used to verify integrity of id token 
-        const client = new OAuth2Client(process.env.CLIENT_ID);
-        var extractData  = {
-            email : null,
-            password : null,
-            first_name : null,
-            last_name : null,
-            phone_no : null, 
-            signin_type : 1 // signin type : 0 -> regular , 1 -> google , 2 -> facebook 
-        }
-        
-        
-        verify();
-        async function userCheck() {
-            await verify(); 
-        }
-        /*
-        .catch(
-        console.error
-        ); */
-        console.log("X");
-        return res.json({
-            success: 0,
-            message: JSON.stringify(extractData)
-        });
-    },
+  
+    /*
+Complete get user from email 
+Complete transaction parts
+
+    */
 
 }

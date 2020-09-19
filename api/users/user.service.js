@@ -81,5 +81,39 @@ module.exports = {
             }
             
             ); // query
+    },
+
+    addPayment : function(data,callback) {
+        pool.query(
+            'insert into transactions(uid,pname,pid,pprice,tdate,ttime) values(?,?,?,?,?,?)',
+            [
+                data.uid,
+                data.product_name,
+                data.product_id,
+                data.product_price,
+                data.tdate,
+                data.ttime
+            ]
+            ,
+            function(error,result,fields){
+                if(error) {
+                    return callback(error,null);
+                }
+                return callback(null,result)
+            }
+        ); // query
+    },
+
+    gTD : function(uid,callback) { //get Transaction Details
+        pool.query(
+            'select * from transactions where uid=?',
+            [uid],
+            function(error,result,fields) {
+                if(error) {
+                    return callback(error,null);
+                }
+                return callback(null,result)
+            }
+        ); //query 
     }
 }

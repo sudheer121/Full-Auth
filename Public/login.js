@@ -25,7 +25,7 @@ function onSuccess(googleUser) {
         success: function(json) {      
             console.log(json.message); 
             if(json.success===1){
-                document.cookie = "grishmat=" + json.token + ";expires=" + expdate.toUTCString() + ";"; //grishmat is jwt token 
+                document.cookie = "grishmat=" + json.token + ";expires=" + expdate.toUTCString() + "; SameSite=Strict;"; //grishmat is jwt token 
             }
         }
     }); 
@@ -52,7 +52,7 @@ function signOut()
     });
     var expdate = new Date()
     expdate.setDate(expdate.getDate() - 1);
-    document.cookie = "grishmat=" + ";expires=" + expdate.toUTCString() + ";"; //grishmat is jwt token 
+    document.cookie = "grishmat=" + ";expires=" + expdate.toUTCString() + "; "; //grishmat is jwt token 
 }
 
 function toggleResetPswd(e){
@@ -121,7 +121,7 @@ $("#main_login").bind("click", function(){
               {   
                   signOut(); //signOut of google if signing in via other account  
                   $('#afterlogin').html("Logged in successfully") ;     
-                  document.cookie = "grishmat=" + jsonobj.token + ";expires=" + expdate.toUTCString() + ";"; //grishmat is jwt token 
+                  document.cookie = "grishmat=" + jsonobj.token + ";expires=" + expdate.toUTCString() + ";SameSite=Strict;"; //grishmat is jwt token 
                   var x = document.cookie;
                   console.log("Cookie :" + x);    
               } else {

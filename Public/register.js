@@ -19,7 +19,7 @@ function onSuccess(googleUser) {
         success: function(json) {      
             console.log(json.message); 
             if(json.success===1){
-                document.cookie = "grishmat=" + json.token + ";expires=" + expdate.toUTCString() + ";"; //grishmat is jwt token 
+                document.cookie = "grishmat=" + json.token + ";expires=" + expdate.toUTCString() + ";SameSite=Strict;"; //grishmat is jwt token 
             }
         }
     }); 
