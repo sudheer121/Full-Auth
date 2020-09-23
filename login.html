@@ -16,12 +16,50 @@
     <title>Grishma Foods</title>
 </head>
 <body>
+    
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : '750362455545843',
+                cookie     : true,
+                xfbml      : true,
+                version    : 'v8.0'
+            });
+                
+            FB.AppEvents.logPageView();  
+            
+            $("#fbsignin").bind("click",()=>{
+                
+                FB.login(function(response) {
+                if (response.status === 'connected') {
+                    console.log(response); 
+                    $("#fbsignin span").html("<span><i class='fab fa-facebook-f'></i> Signed In");
+                } else {
+                    console.log(response); 
+                }
+                }, {scope: 'public_profile,email'});
+
+            });
+            
+        };
+
+        (function(d, s, id){
+           var js, fjs = d.getElementsByTagName(s)[0];
+           if (d.getElementById(id)) {return;}
+           js = d.createElement(s); js.id = id;
+           js.src = "https://connect.facebook.net/en_US/sdk.js";
+           fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'))
+    </script>
+    <div id="chill" >
+        Chillllllll
+    </div>
     <div id="logreg-forms">
             <form   class="form-signin"> <!-- action="http://localhost:3000/login" method="post"-->
             <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"> Sign in </h1>
             <div class="social-login"> 
-                <div id="my-signin2" ></div>
-                <button class="btn facebook-btn social-btn" type="button"><span><i class="fab fa-facebook-f"></i> Sign in with Facebook</span> </button>
+                <div id="my-signin2" ></div>               
+                <button id = "fbsignin" class="btn facebook-btn social-btn" type="button"><span><i class="fab fa-facebook-f"></i> Sign in with Facebook</span> </button>
             </div>
             <p style="text-align:center"> OR  </p>
 
@@ -137,5 +175,34 @@ $(()=>{
     </p> -->
     <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="/auth.js"></script> -->
+    <script>
+        function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
+            console.log('Welcome!  Fetching your information.... ');
+            FB.api('/me', function(response) {
+            console.log('Successful login for: ' + response.name);
+            console.log(response.id); 
+            getUserInfo(response.id); 
+            });
+        }
+        function getUserInfo(userId) {
+            console.log("Here"); 
+            FB.api(
+            '/'+userId+'/?fields=id,name,email',
+            'GET',
+            {},
+            function(response) {
+                // Insert your code here
+                // console.log(response);
+                let email = response.email;
+                console.log(email); 
+                //loginViaEmail(email);
+            }
+            );
+        };
+        $("#chill").bind("click",()=>{
+            console.log("Clicked"); 
+            testAPI(); 
+        }); 
+    </script>
 </body>
 </html>

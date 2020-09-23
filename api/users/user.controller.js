@@ -11,6 +11,8 @@ const { sign } = require("jsonwebtoken");
 const json = require("body-parser/lib/types/json");
 const jwtsalt = process.env.JWT_SALT; //inside tokenvalidation also
 
+
+
 function addUserToDb(data){
     const myPromise = new Promise((resolve, reject) => {  
         create(data,function(err,result){
@@ -145,6 +147,15 @@ module.exports = {
     },
 
     googleSignIn : function(req,res) {
+
+        //options for cookie 
+        let options = {
+            expires: new Date(Date.now() + process.env.JWT_EXPDATE),
+            secure: false, // set to true if your using https
+            httpOnly: false, // The cookie only accessible by the web server
+            // signed: true // Indicates if the cookie should be signed
+        }
+        
         const body = req.body; 
         var id_token = body.id_token;
         var client_id = body.client_id;
@@ -175,7 +186,9 @@ module.exports = {
         })
         .then((result)=>{
             if(result === "1"){
-                returnObj.token = giveJWT(extractData);
+                var jsontoken = giveJWT(extractData);
+                res.cookie('babushona', jsontoken,options); // options is optional
+                returnObj.token = jsontoken;
                 returnObj.success = 1;
                 returnObj.message = "User logged in by Google sign In";
             }
@@ -225,6 +238,15 @@ module.exports = {
         
     },
     login : function(req,res){
+        
+        //options for cookie 
+        let options = {
+            expires: new Date(Date.now() + process.env.JWT_EXPDATE),
+            secure: false, // set to true if your using https
+            httpOnly: false, // The cookie only accessible by the web server
+            // signed: true // Indicates if the cookie should be signed
+        }
+        
         const body = req.body; 
         console.log(body.email + " " + body.password); 
         getUserByEmail(body.email,function(err,result){
@@ -241,11 +263,13 @@ module.exports = {
             if(passed) {
                 //result.password = undefined; //for not sending password in token 
                 const jsontoken = sign({ resultdata: result }, jwtsalt, {
-                    expiresIn: "7d"
+                    expiresIn: process.env.JWT_EXPDATE
                 });
+                
+                res.cookie('babushona', jsontoken,options); // options is optional
                 return res.json({
                     success: 1,
-                    message: "login successfull",
+                    message: "login successful",
                     token: jsontoken
                 });
             } 
@@ -291,3 +315,9 @@ Complete transaction parts
     */
 
 }
+
+/*
+
+Will work on setting cookies from browser side later 
+
+*/ 

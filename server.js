@@ -22,13 +22,13 @@ app.use("/api",userRouter);
 
 
 app.get("/", function(req, res){
-  console.log('Cookies /: ', req.cookies);
+ 
   res.render(__dirname + '/home.html'); 
 });
 
 // Authentication/Login 
 app.get("/login", function(req, res){
-  console.log('Cookies: /login :', req.cookies['grishmat']);
+  //console.log('Cookies: /login :', req.cookies['grishmat']);
   res.render(__dirname + '/login.html'); 
 });
 
