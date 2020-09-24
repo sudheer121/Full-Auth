@@ -9,8 +9,8 @@ var jwt = require('jsonwebtoken');
 const userRouter = require("./api/users/user.router"); 
 
 var cookieParser = require("cookie-parser");
-app.use(cookieParser());
 
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/Public'));
 app.engine('html', require('ejs').renderFile);

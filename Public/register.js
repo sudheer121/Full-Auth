@@ -2,43 +2,6 @@ var expdate = new Date();
 expdate.setDate(expdate.getDate() + 7);
 const loginPage = "http://localhost:3000/login";
 
-const client_id_ = '244496231967-2jf7lel0i19vb0uo8moaf63uet2e28ks.apps.googleusercontent.com';
-function onSuccess(googleUser) {
-//   console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-    var id_token_ = googleUser.getAuthResponse().id_token;
-    var profile = googleUser.getBasicProfile();
-    $.ajax({
-        url: 'http://localhost:3000/api/gsignin',  
-        type: 'post',
-        data: JSON.stringify({ 
-            id_token : id_token_ , 
-            client_id : client_id_
-        }),
-        contentType: "application/json",
-        dataType: 'json',
-        success: function(json) {      
-            console.log(json.message); 
-            if(json.success===1){
-                document.cookie = "grishmat=" + json.token + ";expires=" + expdate.toUTCString() + ";SameSite=Strict;"; //grishmat is jwt token 
-            }
-        }
-    }); 
-}
-function onFailure(error) {
-    console.log(error);
-}
-function renderButton() {
-    gapi.signin2.render('my-signin2', {
-    'scope': 'profile email',
-    'width': 180,
-    'height': 35,
-    'longtitle': true,
-    'theme': 'dark',
-    'onsuccess': onSuccess,
-    'onfailure': onFailure
-    });
-}
-
 function validateForm() {
     
     var errorCount = 0; 

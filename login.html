@@ -16,41 +16,7 @@
     <title>Grishma Foods</title>
 </head>
 <body>
-    
-    <script>
-        window.fbAsyncInit = function() {
-            FB.init({
-                appId      : '750362455545843',
-                cookie     : true,
-                xfbml      : true,
-                version    : 'v8.0'
-            });
-                
-            FB.AppEvents.logPageView();  
-            
-            $("#fbsignin").bind("click",()=>{
-                
-                FB.login(function(response) {
-                if (response.status === 'connected') {
-                    console.log(response); 
-                    $("#fbsignin span").html("<span><i class='fab fa-facebook-f'></i> Signed In");
-                } else {
-                    console.log(response); 
-                }
-                }, {scope: 'public_profile,email'});
-
-            });
-            
-        };
-
-        (function(d, s, id){
-           var js, fjs = d.getElementsByTagName(s)[0];
-           if (d.getElementById(id)) {return;}
-           js = d.createElement(s); js.id = id;
-           js.src = "https://connect.facebook.net/en_US/sdk.js";
-           fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'))
-    </script>
+    <script src="fbSignIn.js"> </script>
     <div id="chill" >
         Chillllllll
     </div>
@@ -70,139 +36,34 @@
             <span class="error"><p id="password_error"></p></span>
 
             <button id="main_login" class="btn btn-success btn-block" type="button"><i class="fas fa-sign-in-alt"></i> Sign in</button>
+            <span><p id="login_message"></p></span>
             <div id="afterlogin"> </div>
-            <!-- <a href="#" id="forgot_pswd">Forgot password?</a> -->
-            
-            <!--             
+            <!-- <a href="#" id="forgot_pswd">Forgot password?</a>
             <button class="btn btn-success btn-block guest-btn" type="button"><span><i class="fas fa-angle-double-right"></i> Login as Guest </span> </button>
              -->
             <hr>
             <button class="btn btn-primary btn-block" type="button" id="btn-signup"><i class="fas fa-user-plus"></i> Sign up New Account</button>
         </form>
-
+            <!-- 
             <form action="/reset/password/" class="form-reset">
                 <input type="email" id="resetEmail" class="form-control" placeholder="Email address" required="" autofocus="">
                 <button class="btn btn-primary btn-block" type="submit">Reset Password</button>
                 <a href="#" id="cancel_reset"><i class="fas fa-angle-left"></i> Back</a>
             </form>
-            
-            <form action="/signup/" class="form-signup">
-                <div class="social-login">
-                    <button class="btn facebook-btn social-btn" type="button"><span><i class="fab fa-facebook-f"></i> Sign up with Facebook</span> </button>
-                </div>
-                <div class="social-login">
-                    <button class="btn google-btn social-btn" type="button"><span><i class="fab fa-google-plus-g"></i> Sign up with Google+</span> </button>
-                </div>
-                
-                <p style="text-align:center">OR</p>
-
-                <input type="text" id="user-name" class="form-control" placeholder="Full name" required="" autofocus="">
-                <input type="email" id="user-email" class="form-control" placeholder="Email address" required autofocus="">
-                <input type="password" id="user-pass" class="form-control" placeholder="Password" required autofocus="">
-                <input type="password" id="user-repeatpass" class="form-control" placeholder="Repeat Password" required autofocus="">
-
-                <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-user-plus"></i> Sign Up</button>
-                <a href="#" id="cancel_signup"><i class="fas fa-angle-left"></i> Back</a>
-            </form>
-            <br>
-            
+            -->     
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <!-- <script>
-        function onSuccess(googleUser) {
-        //   console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-            var id_token_ = googleUser.getAuthResponse().id_token;
-            var profile = googleUser.getBasicProfile();
-            console.log('ID: ' + profile.getId());
-            console.log('Full Name: ' + profile.getName());
-            console.log('Given Name: ' + profile.getGivenName());
-            console.log('Family Name: ' + profile.getFamilyName());
-            console.log('Image URL: ' + profile.getImageUrl());
-            console.log('Email: ' + profile.getEmail());
-            $.ajax({
-                url: 'http://localhost:3000/gsignin',  
-                type: 'post',
-                data: JSON.stringify({ 
-                   id_token : id_token_ 
-                }),
-		        contentType: "application/json",
-                dataType: 'json',
-                success: function(json) {      
-                    console.log("Server: I have received id token: " + json); 
-                }
-            }); 
-        }
-        function onFailure(error) {
-          console.log(error);
-        }
-        function renderButton() {
-          gapi.signin2.render('my-signin2', {
-            'scope': 'profile email',
-            'width': 180,
-            'height': 35,
-            'longtitle': true,
-            'theme': 'dark',
-            'onsuccess': onSuccess,
-            'onfailure': onFailure
-          });
-          
-        }
-    </script> -->
+    <script src="googleSignIn.js"> </script>
     <script src="login.js"> </script>
     <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
   
-    <!-- <p style="text-align:center">
-        <a href="http://bit.ly/2RjWFMfunction toggleResetPswd(e){
-    e.preventDefault();
-    $('#logreg-forms .form-signin').toggle() // display:block or none
-    $('#logreg-forms .form-reset').toggle() // display:block or none
-}
-
-function toggleSignUp(e){
-    e.preventDefault();
-    $('#logreg-forms .form-signin').toggle(); // display:block or none
-    $('#logreg-forms .form-signup').toggle(); // display:block or none
-}
-
-$(()=>{
-    // Login Register Form
-    $('#logreg-forms #forgot_pswd').click(toggleResetPswd);
-    $('#logreg-forms #cancel_reset').click(toggleResetPswd);
-    $('#logreg-forms #btn-signup').click(toggleSignUp); 
-    $('#logreg-forms #cancel_signup').click(toggleSignUp);
-})g" target="_blank" style="color:black">By Artin</a>
-    </p> -->
-    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="/auth.js"></script> -->
+    
     <script>
-        function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
-            console.log('Welcome!  Fetching your information.... ');
-            FB.api('/me', function(response) {
-            console.log('Successful login for: ' + response.name);
-            console.log(response.id); 
-            getUserInfo(response.id); 
-            });
-        }
-        function getUserInfo(userId) {
-            console.log("Here"); 
-            FB.api(
-            '/'+userId+'/?fields=id,name,email',
-            'GET',
-            {},
-            function(response) {
-                // Insert your code here
-                // console.log(response);
-                let email = response.email;
-                console.log(email); 
-                //loginViaEmail(email);
-            }
-            );
-        };
         $("#chill").bind("click",()=>{
-            console.log("Clicked"); 
-            testAPI(); 
-        }); 
+        console.log("Clicked"); 
+        testAPI(); 
+    }); 
     </script>
 </body>
 </html>

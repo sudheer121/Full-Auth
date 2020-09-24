@@ -150,7 +150,7 @@ module.exports = {
 
         //options for cookie 
         let options = {
-            expires: new Date(Date.now() + process.env.JWT_EXPDATE),
+            expires: new Date(Date.now() + parseInt(process.env.JWT_EXPDATE)),//new Date(Date.now() + process.env.JWT_EXPDATE),
             secure: false, // set to true if your using https
             httpOnly: false, // The cookie only accessible by the web server
             // signed: true // Indicates if the cookie should be signed
@@ -186,8 +186,10 @@ module.exports = {
         })
         .then((result)=>{
             if(result === "1"){
-                var jsontoken = giveJWT(extractData);
-                res.cookie('babushona', jsontoken,options); // options is optional
+                const jsontoken = sign({ resultdata: extractData }, jwtsalt, {
+                    expiresIn: process.env.JWT_EXPDATE
+                });
+                res.cookie('grishmat', jsontoken,options); // options is optional
                 returnObj.token = jsontoken;
                 returnObj.success = 1;
                 returnObj.message = "User logged in by Google sign In";
@@ -241,32 +243,33 @@ module.exports = {
         
         //options for cookie 
         let options = {
-            expires: new Date(Date.now() + process.env.JWT_EXPDATE),
+            expires: new Date(Date.now() + parseInt(process.env.JWT_EXPDATE)),//new Date(Date.now() + process.env.JWT_EXPDATE),
             secure: false, // set to true if your using https
             httpOnly: false, // The cookie only accessible by the web server
             // signed: true // Indicates if the cookie should be signed
         }
         
         const body = req.body; 
-        console.log(body.email + " " + body.password); 
+        console.log("User trying to login via normal login" + body.email + " " + body.password); 
         getUserByEmail(body.email,function(err,result){
             if(err){
                 console.log(err);
             }
-            if(!result){
+            if(!result || result.password==null){
                 return res.json({
                     success: 0,
                     message: "User doesn't exist" 
                 });
             }
+            
             const passed = compareSync(body.password, result.password); //boolean 
             if(passed) {
                 //result.password = undefined; //for not sending password in token 
+                
                 const jsontoken = sign({ resultdata: result }, jwtsalt, {
                     expiresIn: process.env.JWT_EXPDATE
-                });
-                
-                res.cookie('babushona', jsontoken,options); // options is optional
+                }); 
+                res.cookie('grishmat', jsontoken,options); // options is optional
                 return res.json({
                     success: 1,
                     message: "login successful",

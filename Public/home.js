@@ -4,7 +4,6 @@ expdate.setDate(expdate.getDate() + 7);
 
 //Google signin 
 function onSuccess(googleUser) {
-//   console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
     var idtoken = googleUser.getAuthResponse().id_token;
     var profile = googleUser.getBasicProfile();
     $.ajax({
@@ -19,7 +18,7 @@ function onSuccess(googleUser) {
         success: function(json) {      
             console.log(json.message); 
             if(json.success===1){
-                document.cookie = "grishmat=" + json.token + ";expires=" + expdate.toUTCString() + ";SameSite=Strict;"; //grishmat is jwt token 
+                // this function  is made to print name of user on home page 
                 onHome(); // will be called twice, first on document load and second here 
             }
         }
@@ -45,11 +44,8 @@ function signOut()
     auth2.signOut().then(function () {
     console.log('User signed out.');
     });
-    var expdate = new Date()
-    expdate.setDate(expdate.getDate() - 1);
-    document.cookie = "grishmat=" + ";expires=" + expdate.toUTCString() + ";"; //grishmat is jwt token 
 }
-$("#my-signin2").hide(); 
+$(".hideme").hide(); // signin button is the one which loads all google details of user 
 
 function getCookie(name) {
     let cookie = {};
@@ -65,10 +61,10 @@ console.log(document.cookie);
 function onHome(){  //gets detail of user on homepage load; 
     $.ajax({
         url: 'http://localhost:3000/api/onhome',  
-        type: 'get',
-        headers: {
-            "Authorization": "Bearer " + getCookie('grishmat')
+        xhrFields: {  //setting this is very important as cookies won't be send otherwise
+            withCredentials: true
         },
+        type: 'get',
         contentType: "application/json",
         dataType: 'json',
         success: function(jsonobj) {
@@ -105,8 +101,8 @@ $('#postpay').click(function(){
         }),
         contentType: "application/json",
         dataType: 'json',
-        headers : {
-            "Authorization" : "Bearer " + x 
+        xhrFields: {  //setting this is very important as cookies won't be send otherwise
+        withCredentials: true
         },
         success : function(json) {
             $('#postpaymsg').hide().html("<pre style='color:green;'>Payment successful<pre>").fadeIn(1000).delay(1000).fadeOut(2000) ;
@@ -122,8 +118,8 @@ $('#getpay').click(function(){  //get history
         type: 'get',
         contentType: "application/json",
         dataType: 'json',
-        headers : {
-            "Authorization" : "Bearer " + x 
+        xhrFields: {  //setting this is very important as cookies won't be send otherwise
+        withCredentials: true
         },
         success : function(json) {
             console.log(json); 
@@ -153,3 +149,16 @@ function printDetails(resultArr){
     }
 
 }
+$('#logout').click(function(){  //logs you out 
+    
+    //can be improved 
+    
+    //signs out of google 
+    signOut();
+    
+    //clears cookie 
+    var expdate = new Date()
+    expdate.setDate(expdate.getDate() - 1);
+    document.cookie = "grishmat=" + ";expires=" + expdate.toUTCString() + ";"; //grishmat is jwt token 
+    window.location.replace("http://localhost:3000");
+});
