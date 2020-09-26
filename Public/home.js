@@ -1,13 +1,14 @@
-const client_id_ = '244496231967-2jf7lel0i19vb0uo8moaf63uet2e28ks.apps.googleusercontent.com';
+//const client_id_ = '244496231967-2jf7lel0i19vb0uo8moaf63uet2e28ks.apps.googleusercontent.com';
 var expdate = new Date()
 expdate.setDate(expdate.getDate() + 7);
 
 //Google signin 
+/*
 function onSuccess(googleUser) {
     var idtoken = googleUser.getAuthResponse().id_token;
     var profile = googleUser.getBasicProfile();
     $.ajax({
-        url: 'http://localhost:3000/api/gsignin',  
+        url: SITE_NAME + '/api/gsignin',  
         type: 'post',
         data: JSON.stringify({ 
             id_token : idtoken , 
@@ -45,7 +46,8 @@ function signOut()
     console.log('User signed out.');
     });
 }
-$(".hideme").hide(); // signin button is the one which loads all google details of user 
+*/ 
+ // signin button is the one which loads all google details of user 
 
 function getCookie(name) {
     let cookie = {};
@@ -58,9 +60,9 @@ function getCookie(name) {
 }
 console.log(document.cookie); 
 
-function onHome(){  //gets detail of user on homepage load; 
+function onHome(){  //gets detail of user on homepage ; 
     $.ajax({
-        url: 'http://localhost:3000/api/onhome',  
+        url: SITE_NAME + '/api/onhome',  
         xhrFields: {  //setting this is very important as cookies won't be send otherwise
             withCredentials: true
         },
@@ -68,7 +70,6 @@ function onHome(){  //gets detail of user on homepage load;
         contentType: "application/json",
         dataType: 'json',
         success: function(jsonobj) {
-          //console.log("asds" + getCookie('grishmat') );
           console.log(jsonobj); 
           var arr = [ "", "via google signin", "via facebook sigin"]; 
           var stmt = "Logged in as "; 
@@ -80,6 +81,7 @@ function onHome(){  //gets detail of user on homepage load;
 };
 
 $(document).ready(function() {
+    $(".hideme").hide();
     var x = getCookie('grishmat');
     if(x == undefined || x === null){  }
     else{
@@ -87,12 +89,26 @@ $(document).ready(function() {
     }
 });
 
+var checkCookie = function() {  // does this hurt ? 
+    var lastCookie = document.cookie['grishmat']; // 'static' memory between function calls
+    return function() {
+        var currentCookie = document.cookie['grishmat'];
+        if (currentCookie != lastCookie) {
+            onHome(); 
+            lastCookie = currentCookie; // store latest cookie
+        }
+    };
+}();
+
+window.setInterval(checkCookie, 100);
+
+
 $('#postpay').click(function(){
     var x = getCookie('grishmat');
     //var a = 
     //console.log($('#product_name').val + " " +  $('#product_id').val  + " " + $('#product_price').val); 
     $.ajax({
-        url: 'http://localhost:3000/api/pay',
+        url: SITE_NAME + '/api/pay',
         type: 'post',
         data : JSON.stringify({
             product_name : $('#product_name').val(),
@@ -114,7 +130,7 @@ $('#getpay').click(function(){  //get history
     var x = getCookie('grishmat'); 
     if(x == undefined || x==null) return; 
     $.ajax({
-        url: 'http://localhost:3000/api/pay',
+        url: SITE_NAME + '/api/pay',
         type: 'get',
         contentType: "application/json",
         dataType: 'json',
@@ -139,7 +155,7 @@ function printDetails(resultArr){
     for(var i=0;i<resultArr.length;i++)
     {
         const obj = resultArr[i]; 
-        str = x + obj.ttime + y; 
+        str =  x + obj.ttime + y; 
         str += x + obj.tdate + y; 
         str += x + obj.pname + y;
         str += x + obj.pid + y;
@@ -160,5 +176,5 @@ $('#logout').click(function(){  //logs you out
     var expdate = new Date()
     expdate.setDate(expdate.getDate() - 1);
     document.cookie = "grishmat=" + ";expires=" + expdate.toUTCString() + ";"; //grishmat is jwt token 
-    window.location.replace("http://localhost:3000");
+    window.location.replace(SITE_NAME);
 });

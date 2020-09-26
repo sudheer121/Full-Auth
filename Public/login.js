@@ -41,7 +41,7 @@ $("#main_login").bind("click", function(){
     if(validateForm()) {
         
         $.ajax({
-            url: 'http://localhost:3000/api/login',  
+            url: SITE_NAME + '/api/login',  
             type: 'post',
             data: JSON.stringify({ 
               email: $('#email').val(),

@@ -1,4 +1,5 @@
 //jshint esversion:6
+
 require('dotenv').config();
 var express = require('express');
 var app = express();
@@ -7,8 +8,9 @@ const https = require('https');
 var jwt = require('jsonwebtoken'); 
 //const CLIENT_ID = '244496231967-2jf7lel0i19vb0uo8moaf63uet2e28ks.apps.googleusercontent.com'; // google sign in 
 const userRouter = require("./api/users/user.router"); 
-
 var cookieParser = require("cookie-parser");
+
+const fs = require('fs'); // for ssl certificate 
 
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -35,8 +37,18 @@ app.get("/login", function(req, res){
 app.get("/register", function(req, res){
   res.render(__dirname + '/register.html'); 
 });
+
+https.createServer({
+  key: fs.readFileSync('./key.pem'),
+  cert: fs.readFileSync('./cert.pem'),
+  passphrase: 'Tripathi31'
+}, app)
+.listen(3000);
+
+/*
 app.listen(3000, function(){
   console.log("Server started on port 3000.");
-});
+});*/
+
 //const lib = require('./dbwork.js'); 
 //lib.calledme(45); 

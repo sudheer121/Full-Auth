@@ -2,6 +2,7 @@ const {
     createUser,
     login,
     googleSignIn,
+    fbSignIn, 
     getAllUsers,
     onHome,
     addPayment,
@@ -16,8 +17,10 @@ const router = express.Router();
 router.use(express.json());
 router.post("/register",createUser); 
 router.post("/login", login);
-//router.post("/byemail", login);
 router.post("/gsignin", googleSignIn);
+router.post("/fbsignin", fbSignIn);
+
+
 router.get("/getallusers",checkToken, getAllUsers);
 router.get("/onhome",checkToken, onHome);
 

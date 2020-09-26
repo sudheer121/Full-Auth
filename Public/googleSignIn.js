@@ -12,7 +12,7 @@ function onSuccess(googleUser) {
         console.log('Email: ' + profile.getEmail());
         */
         $.ajax({
-            url: 'http://localhost:3000/api/gsignin',  
+            url: SITE_NAME + '/api/gsignin',  
             type: 'post',
             data: JSON.stringify({ 
                 id_token : id_token_ , 
