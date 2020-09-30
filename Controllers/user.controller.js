@@ -4,7 +4,7 @@ getUserByEmail,
 getUsers,
 gTD,
 addPayment,
-} = require("./user.service");
+} = require("../Models/user.service");
 
 const axios = require('axios'); // for promise based https requests 
 const { genSaltSync, hashSync, compareSync } = require('bcryptjs'); // for hashing password before storing in db 
@@ -16,16 +16,18 @@ const jwtsalt = process.env.JWT_SALT; //inside tokenvalidation also
 
 function checkUserExists(email){ 
     const myPromise = new Promise((resolve, reject) => {  
-        getUserByEmail(email,function(err,result){
-            if(err) {
-                reject("Database Connection Error while checking if user exists");
-            }
-            else if(result) {
-                resolve("1"); 
+        getUserByEmail(email)
+        .then((result)=>{
+            console.log("Result :");
+            console.log(result);
+            console.log(typeof result);
+            console.log(result.length);
+            if(result.length > 0) {
+                resolve("1");
             } else {
-                resolve("0"); 
+                resolve("0");
             }
-        }); 
+        });
     });
     return myPromise; 
 }
@@ -49,7 +51,6 @@ async function verify(extractData,id_token,client_id) {
     const {OAuth2Client} = require('google-auth-library'); // used to verify integrity of id token 
     const client = new OAuth2Client(process.env.CLIENT_ID);
     
-
     const ticket = await client.verifyIdToken({
         idToken: id_token,
         audience: client_id  // Specify the client_id of the app(frontend) that accesses the backend
@@ -61,25 +62,18 @@ async function verify(extractData,id_token,client_id) {
     extractData.last_name = payload['family_name']; 
 }
 
-
-function giveJWT(data){
-    const jsontoken = sign({ resultdata: data }, jwtsalt);
-    return jsontoken 
-}
-
-
 function getIdfromEmail(email){ 
-    const myPromise = new Promise((resolve, reject) => {  
-        getUserByEmail(email,function(err,result){
-            if(err) {
-                reject("Database Connection Error while checking if user exists");
-            }
-            else if(result) {
-                resolve(result.uid); 
+    const myPromise = new Promise((resolve, reject) => {
+        
+        getUserByEmail(email)
+        .then((result)=>{
+            if(result) {
+                //console.log(result)
+                resolve(result[0].uid);
             } else {
                 reject("User does not exist in database");
             }
-        }); 
+        })
     });
     return myPromise; 
 }
@@ -192,17 +186,18 @@ module.exports = {
             
         })
         .then(() => {
-            return checkUserExists(extractData.email);
+            return getUserByEmail(extractData.email); 
         })
         .then((result)=>{
-            if(result === "0") {
-                return addUserToDb(extractData);
+
+            if(result.length === 0) { //checking if user exists
+                return create(extractData); 
             } else {
                 return "1"; 
             }
         })
         .then((result)=>{
-            if(result === "1"){
+            if(result.length){
                 const jsontoken = sign({ resultdata: extractData }, process.env.JWT_SALT, {
                     expiresIn: process.env.JWT_EXPDATE
                 });
@@ -248,17 +243,17 @@ module.exports = {
 
         verify(extractData,id_token,client_id)
         .then((result) => {
-            return checkUserExists(extractData.email);
+            return getUserByEmail(extractData.email);
         })
         .then((result)=>{
-            if(result === "0") {
-                return addUserToDb(extractData);
+            if(result.length === 0) { //checking if user exists, if not then length of result will be zero. 
+                return create(extractData); 
             } else {
                 return "1"; 
             }
         })
         .then((result)=>{
-            if(result === "1"){
+            if(result.length){
                 const jsontoken = sign({ resultdata: extractData }, jwtsalt, {
                     expiresIn: process.env.JWT_EXPDATE
                 });
@@ -276,6 +271,7 @@ module.exports = {
             return res.json(returnObj); 
         });
     },
+
     createUser: function(req,res) {
         const body = req.body; 
         const salt = genSaltSync(10);
@@ -286,19 +282,22 @@ module.exports = {
             message : "There was a problem"
         }
 
-        checkUserExists(body.email)
+        getUserByEmail(body.email) // first check if user already exists 
         .then((result)=>{
-            if(result === "1"){
+            
+            // result is an array 
+            if(result.length > 0){
                 returnObj.success = 0;
                 returnObj.message = "User already exists";
-                return Promise.resolve("2"); 
+                return Promise.resolve(); 
             }
-            if(result === "0") {
-                return addUserToDb(body);
+            else {  // array is empty in case user doesn't exist, so create user 
+                return create(body)    
             }
         })
         .then((result)=>{
-            if(result === "1"){
+            
+            if(result){
                 returnObj.success = 1;
                 returnObj.message = "Registered successfully, you can login now";
             }
@@ -324,6 +323,42 @@ module.exports = {
         
         const body = req.body; 
         console.log("User trying to login via normal login" + body.email + " " + body.password); 
+        
+        getUserByEmail(body.email)
+        .then((result)=>{
+
+            if(result.length === 0 || result.password==null){
+            
+                res.json({
+                    success: 0,
+                    message: "User doesn't exist" 
+                });
+            
+            } else if (compareSync(body.password, result.password)) { //compareSync returns a boolean 
+                
+                const jsontoken = sign({ resultdata: result }, jwtsalt, {
+                    expiresIn: process.env.JWT_EXPDATE
+                }); 
+                res.cookie('grishmat', jsontoken, options); // options is optional
+                res.json({
+                    success: 1,
+                    message: "login successful",
+                    token: jsontoken
+                });
+            
+            } else {
+                res.json({
+                    success: 0,
+                    message: "invalid email or password"
+                });
+            }
+
+        })
+        .catch((err)=>{
+            console.log(err); 
+        });
+    
+    /*  
         getUserByEmail(body.email,function(err,result){
             if(err){
                 console.log(err);
@@ -356,6 +391,7 @@ module.exports = {
                 });
             }
         });
+    */
     },
     getAllUsers : function(req,res) {
         getUsers(function(err,result){

@@ -1,53 +1,57 @@
-//const client_id_ = '244496231967-2jf7lel0i19vb0uo8moaf63uet2e28ks.apps.googleusercontent.com';
-var expdate = new Date()
-expdate.setDate(expdate.getDate() + 7);
 
-//Google signin 
-/*
-function onSuccess(googleUser) {
-    var idtoken = googleUser.getAuthResponse().id_token;
-    var profile = googleUser.getBasicProfile();
-    $.ajax({
-        url: SITE_NAME + '/api/gsignin',  
-        type: 'post',
-        data: JSON.stringify({ 
-            id_token : idtoken , 
-            client_id : client_id_
-        }),
-        contentType: "application/json",
-        dataType: 'json',
-        success: function(json) {      
-            console.log(json.message); 
-            if(json.success===1){
-                // this function  is made to print name of user on home page 
-                onHome(); // will be called twice, first on document load and second here 
-            }
-        }
-    }); 
+// Google Sign Out 
+const client_id_ = '244496231967-2jf7lel0i19vb0uo8moaf63uet2e28ks.apps.googleusercontent.com';
+function init() {
+    gapi.load('auth2', function() {
+        /* Ready. Make a call to gapi.auth2.init or some other API */
+        gapi.auth2.init({
+                client_id: client_id_
+        }) 
+        //gapi.auth2.
+    });
 }
-function onFailure(error) {
-    console.log(error);
-}
-function renderButton() { 
-    gapi.signin2.render('my-signin2', {
-        'scope': 'profile email',
-        'width': 180,
-        'height': 35,
-        'longtitle': true,
-        'theme': 'dark',
-        'onsuccess': onSuccess,
-        'onfailure': onFailure
-        });
-}
+
 function signOut() 
 {
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
-    console.log('User signed out.');
+    console.log('User signed out of google.');
     });
 }
-*/ 
- // signin button is the one which loads all google details of user 
+
+// FB sign out
+window.fbAsyncInit = function() {
+    FB.init({
+        appId      : '750362455545843',
+        cookie     : true,
+        xfbml      : true,
+        version    : 'v8.0'
+    });
+        
+    FB.AppEvents.logPageView();  
+    FB.getLoginStatus(function(response) {
+        if (response.status === 'connected') {   // Logged into your webpage and Facebook.
+            console.log(response);
+          } 
+    });
+
+    };
+    
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+       
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'))
+   
+function fbLogout() {
+    FB.logout(function(response) {
+        console.log("Logged out of facebook")
+     });
+}
+
 
 function getCookie(name) {
     let cookie = {};
@@ -58,7 +62,6 @@ function getCookie(name) {
     console.log("I got it " + cookie[name]);
     return cookie[name];
 }
-console.log(document.cookie); 
 
 function onHome(){  //gets detail of user on homepage ; 
     $.ajax({
@@ -165,16 +168,20 @@ function printDetails(resultArr){
     }
 
 }
+
 $('#logout').click(function(){  //logs you out 
     
-    //can be improved 
-    
-    //signs out of google 
-    signOut();
+    try {
+        signOut();  //signs out of google 
+        fbLogout(); //signs out of facebook
+    } catch(err) {
+      console.log("All good "); 
+    }
     
     //clears cookie 
     var expdate = new Date()
     expdate.setDate(expdate.getDate() - 1);
     document.cookie = "grishmat=" + ";expires=" + expdate.toUTCString() + ";"; //grishmat is jwt token 
     window.location.replace(SITE_NAME);
+    
 });

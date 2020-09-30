@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 const https = require('https');
 var jwt = require('jsonwebtoken'); 
 //const CLIENT_ID = '244496231967-2jf7lel0i19vb0uo8moaf63uet2e28ks.apps.googleusercontent.com'; // google sign in 
-const userRouter = require("./api/users/user.router"); 
+const userRouter = require("./Routes/user.router"); 
 var cookieParser = require("cookie-parser");
 
 const fs = require('fs'); // for ssl certificate 
@@ -45,6 +45,8 @@ https.createServer({
 }, app)
 .listen(3000);
 
+
+
 /*
 app.listen(3000, function(){
   console.log("Server started on port 3000.");
@@ -52,3 +54,19 @@ app.listen(3000, function(){
 
 //const lib = require('./dbwork.js'); 
 //lib.calledme(45); 
+
+/*
+
+https://www.cronj.com/blog/mvc-architecture-in-node-js/
+
+https://github.com/H-GhaziSultan/Video-Note-App
+https://blog.soshace.com/how-to-architect-a-node-js-project-from-ground-up/
+
+https://bocoup.com/blog/adapter-pattern-a-must-for-vendor-service-integrations
+
+
+https://codeburst.io/node-js-mysql-and-async-await-6fb25b01b628
+https://bezkoder.com/deploy-node-js-app-heroku-cleardb-mysql/
+https://stackoverflow.com/questions/36547292/use-promise-to-process-mysql-return-value-in-node-js
+
+*/

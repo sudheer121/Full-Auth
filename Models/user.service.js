@@ -1,52 +1,67 @@
-const pool = require("../../config/database");
+const pool = require("../config/database");
 
 module.exports = {
-    create : function(data,callback) {
-        pool.query(
-        'insert into registration(email,password,first_name,last_name,phone_no,signin_type) values(?,?,?,?,?,?)',
-        [
-            data.email,
-            data.password,
-            data.first_name,
-            data.last_name,
-            data.phone_no,
-            data.signin_type
-        ]
-        ,
-        function(error,result,fields){
-            if(error) {
-                return callback(error,null);
-            }
-            return callback(null,result)
-        }
-        
-        ); // query
+
+    create : function(data) {
+        const myPromise = new Promise((resolve,reject)=>{
+            pool.query(
+                'insert into registration(email,password,first_name,last_name,phone_no,signin_type) values(?,?,?,?,?,?)',
+                [
+                    data.email,
+                    data.password,
+                    data.first_name,
+                    data.last_name,
+                    data.phone_no,
+                    data.signin_type
+                ]
+                ,
+                function(error,result,fields){
+                    if (error) {
+                        reject(error);
+                        return; 
+                    }
+                    resolve(result);
+                }
+                
+                ); // query
+        }); 
+        return myPromise; 
     },
     
-    getUserById : function(userid,callback) {
-        pool.query(
-        'select * from registration where uid=?',
-        [userid],
-        function(error,result,fields) {
-            if(error) {
-                return callback(error,null);
-            }
-            return callback(null,result[0])
-        }
-        ); //query 
+    getUserById : function(userid) {
+        const myPromise = new Promise((resolve,reject)=>{
+            pool.query(
+                'select * from registration where uid=?',
+                [userid],
+                function(error,result,fields) {
+                    if (error) {
+                        reject(error);
+                        return; 
+                    }
+                    resolve(result);
+                }
+                ); //query 
+        }); 
+        return myPromise; 
     }, 
 
-    getUserByEmail : function(email,callback) {
-        pool.query(
-        'select * from registration where email=?',
-        [email],
-        function(error,result,fields) {
-            if(error) {
-                return callback(error,null);
-            }
-            return callback(null,result[0])
-        }
-        ); //query 
+    getUserByEmail : function(email) {
+
+        const myPromise = new Promise((resolve, reject)=>{
+            pool.query(
+                'select * from registration where email=?',
+                [email],
+                function(error,result,fields) {
+                    if (error) {
+                        reject(error);
+                        return; 
+                    }
+                    resolve(result);
+                }
+                ); //query 
+        }); 
+
+        return myPromise; 
     }, 
 
     getUsers : function(callback) {

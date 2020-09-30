@@ -1,14 +1,18 @@
 const { 
     createUser,
     login,
-    googleSignIn,
     fbSignIn, 
     getAllUsers,
     onHome,
     addPayment,
     getTD
-} = require("./user.controller");
-const { checkToken } = require("../../tokenauth/tokenvalidation");
+} = require("../Controllers/user.controller");
+
+const {
+    googleSignIn
+} = require("../Controllers/googleSignInController");
+
+const { checkToken } = require("../tokenauth/tokenvalidation");
 
 
 var express = require('express');
