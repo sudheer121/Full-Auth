@@ -1,9 +1,5 @@
 const { 
-    createUser,
-    login,
-    fbSignIn, 
     getAllUsers,
-    onHome,
     addPayment,
     getTD
 } = require("../Controllers/user.controller");
@@ -12,6 +8,21 @@ const {
     googleSignIn
 } = require("../Controllers/googleSignInController");
 
+const {
+    fbSignIn
+} = require("../Controllers/facebookSignInController");
+
+const {
+    login 
+} = require("../Controllers/userLoginController");
+
+const {
+    onHome
+} = require("../Controllers/userOnHomepageController");
+
+const {
+    createUser
+} = require("../Controllers/userRegisterController");
 const { checkToken } = require("../tokenauth/tokenvalidation");
 
 
