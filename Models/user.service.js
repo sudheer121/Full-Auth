@@ -98,37 +98,49 @@ module.exports = {
             ); // query
     },
 
-    addPayment : function(data,callback) {
-        pool.query(
-            'insert into transactions(uid,pname,pid,pprice,tdate,ttime) values(?,?,?,?,?,?)',
-            [
-                data.uid,
-                data.product_name,
-                data.product_id,
-                data.product_price,
-                data.tdate,
-                data.ttime
-            ]
-            ,
-            function(error,result,fields){
-                if(error) {
-                    return callback(error,null);
+    addPayment : function(data) {
+
+        const myPromise = new Promise((resolve,reject)=>{
+            pool.query(
+                'insert into transactions(uid,pname,pid,pprice,tdate,ttime) values(?,?,?,?,?,?)',
+                [
+                    data.uid,
+                    data.product_name,
+                    data.product_id,
+                    data.product_price,
+                    data.tdate,
+                    data.ttime
+                ]
+                ,
+                function(error,result,fields) {
+                    if (error) {
+                        reject(error);
+                        return; 
+                    }
+                    resolve(result);
                 }
-                return callback(null,result)
-            }
-        ); // query
+            ); // query
+        }); 
+
+        return myPromise; 
     },
 
-    gTD : function(uid,callback) { //get Transaction Details
-        pool.query(
-            'select * from transactions where uid=?',
-            [uid],
-            function(error,result,fields) {
-                if(error) {
-                    return callback(error,null);
+    getTransactionDetails : function(uid) { //get Transaction Details
+        const myPromise = new Promise((resolve,reject)=>{
+            pool.query(
+                'select * from transactions where uid=?',
+                [uid]
+                ,
+                function(error,result,fields) {
+                    if (error) {
+                        reject(error);
+                        return; 
+                    }
+                    resolve(result);
                 }
-                return callback(null,result)
-            }
-        ); //query 
+            ); // query
+        }); 
+
+        return myPromise;      
     }
 }

@@ -2,7 +2,7 @@ const {
 create,
 getUserByEmail,
 getUsers,
-gTD,
+getTransactionDetails,
 addPayment,
 } = require("../Models/user.service");
 
@@ -66,7 +66,7 @@ module.exports = {
         var email = req.decode.resultdata.email;  
         getIdfromEmail(email).
         then((result) => {
-            gTD(result, function(err,result){
+            getTransactionDetails(result, function(err,result){
                 if(err) throw err; 
                 else {
                     res.json({
@@ -193,6 +193,7 @@ module.exports = {
             }
         });
     },
+    /*
     onHome : function(req,res) {
         var dataObj = {
             first_name : req.decode.resultdata.first_name,
@@ -204,7 +205,7 @@ module.exports = {
             data : dataObj
         }); 
     },
-    /*
+    
     fbSignIn : function(req,res) {
 
         //options for cookie 

@@ -124,7 +124,8 @@ $('#postpay').click(function(){
         withCredentials: true
         },
         success : function(json) {
-            $('#postpaymsg').hide().html("<pre style='color:green;'>Payment successful<pre>").fadeIn(1000).delay(1000).fadeOut(2000) ;
+            const str = "<pre style='color:green;'>" + json.message + "<pre>";
+            $('#postpaymsg').hide().html(str).fadeIn(1000).delay(1000).fadeOut(2000) ;
             console.log(json); 
         }  
     });

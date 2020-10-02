@@ -5,10 +5,11 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 const https = require('https');
-var jwt = require('jsonwebtoken'); 
-//const CLIENT_ID = '244496231967-2jf7lel0i19vb0uo8moaf63uet2e28ks.apps.googleusercontent.com'; // google sign in 
-const userRouter = require("./Routes/user.router"); 
 var cookieParser = require("cookie-parser");
+
+
+const userRouter = require("./Routes/user.router"); 
+
 
 const fs = require('fs'); // for ssl certificate 
 
@@ -69,4 +70,5 @@ https://codeburst.io/node-js-mysql-and-async-await-6fb25b01b628
 https://bezkoder.com/deploy-node-js-app-heroku-cleardb-mysql/
 https://stackoverflow.com/questions/36547292/use-promise-to-process-mysql-return-value-in-node-js
 
+Home should be an ejs file which needs to be rendered 
 */
