@@ -1,6 +1,6 @@
 
 // Google Sign Out 
-const client_id_ = '244496231967-2jf7lel0i19vb0uo8moaf63uet2e28ks.apps.googleusercontent.com';
+// const client_id_ = '244496231967-2jf7lel0i19vb0uo8moaf63uet2e28ks.apps.googleusercontent.com';
 function init() {
     gapi.load('auth2', function() {
         /* Ready. Make a call to gapi.auth2.init or some other API */
@@ -63,49 +63,6 @@ function getCookie(name) {
     return cookie[name];
 }
 
-function onHome(){  //gets detail of user on homepage ; 
-    $.ajax({
-        url: SITE_NAME + '/api/onhome',  
-        xhrFields: {  //setting this is very important as cookies won't be send otherwise
-            withCredentials: true
-        },
-        type: 'get',
-        contentType: "application/json",
-        dataType: 'json',
-        success: function(jsonobj) {
-          console.log(jsonobj); 
-          var arr = [ "", "via google signin", "via facebook sigin"]; 
-          var stmt = "Logged in as "; 
-          if(jsonobj.success === 1) {
-            $(loggedInAs).html(stmt +jsonobj.data.first_name + " " + jsonobj.data.last_name + " " + arr[jsonobj.data.signin_type]);
-          }
-        }
-    }); 
-};
-
-$(document).ready(function() {
-    $(".hideme").hide();
-    var x = getCookie('grishmat');
-    if(x == undefined || x === null){  }
-    else{
-            onHome(); 
-    }
-});
-
-var checkCookie = function() {  // does this hurt ? 
-    var lastCookie = document.cookie['grishmat']; // 'static' memory between function calls
-    return function() {
-        var currentCookie = document.cookie['grishmat'];
-        if (currentCookie != lastCookie) {
-            onHome(); 
-            lastCookie = currentCookie; // store latest cookie
-        }
-    };
-}();
-
-window.setInterval(checkCookie, 100);
-
-
 $('#postpay').click(function(){
     var x = getCookie('grishmat');
     //var a = 
@@ -142,7 +99,7 @@ $('#getpay').click(function(){  //get history
         withCredentials: true
         },
         success : function(json) {
-            console.log(json); 
+            //console.log(json); 
             printDetails(json.data); 
         }
     });
@@ -156,6 +113,7 @@ function printDetails(resultArr){
     $("#details").html("<table><tr><th> Time </th><th> Date </th><th> Product Name </th><th> Producut ID </th>  <th> Product Price</th></tr> </table>");
     var x = '<td>'; var y = '</td>';
     var str; 
+    var prev = 0; 
     for(var i=0;i<resultArr.length;i++)
     {
         const obj = resultArr[i]; 
@@ -164,10 +122,19 @@ function printDetails(resultArr){
         str += x + obj.pname + y;
         str += x + obj.pid + y;
         str += x + obj.pprice + y; 
-        str = '<tr>' + str + '</tr>'; 
-        $("#details table").append(str); 
+        str = '<tr>' + str + '</tr>';  
+        $("#details table").hide().append(str).fadeIn(1000); 
     }
-
+    
+    /*
+    var children = document.querySelector("#details table tbody").children;
+    for (var i = 0; i < children.length; i++) {
+    var tableChild = children[i];
+    console.log(tableChild)
+    children[i].fadeIn(i*1000);
+    // Do stuff
+    }
+    */
 }
 
 $('#logout').click(function(){  //logs you out 

@@ -7,20 +7,28 @@ module.exports = {
         if(token){
             jwt.verify(token, jwtsalt, function(err,decoded){
                 if(err){
-                    return res.json({
-                            success: 0,
-                            message: "Invalid/Expired Token.."
-                    });
+                    req.message = "Invalid/Expired Token"
+                    next();
+                    // return res.json({
+                    //         success: 0,
+                    //         message: "Invalid/Expired Token.."
+                    // });
                 } else {
                     req.decode = decoded; // attaching decoded info in req 
                     next(); 
                 }
             });
         } else {
-            res.json({
-                success:0,
-                message:"Token required for authorization"
-            });
+            req.message = "Token required for authorization";
+            next();
+            // res.json({
+            //     success:0,
+            //     message:"Token required for authorization"
+            // });
         }
     }
 };
+/*
+Decode property is attached to request object if token decoding was successful
+Message property is attached otherwise 
+*/

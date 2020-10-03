@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    
+    <!-- First to load  -->
+    <script> 
+        const client_id_ = "<%= process.env.CLIENT_ID %>"; 
+        const fb_app_id_ = "<%= process.env.FB_APP_ID %>"; 
+    </script>
+    <script src="clientEnv.js"></script>
+    
+    <!-- jQuery -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+<title>Document</title>
+    <style>
+        body {
+            margin: 0px; 
+            padding: 0px; 
+            /* background-color: #57A3FA;  */
+            color : #2B68AD;
+            font-family: sans-serif;
+            text-align: center;
+        }
+        .transaction div div input {
+            background-color:#6daffa;
+        }
+        form a {
+            font-weight: bolder;
+        }
+        .navbar {
+            background-color: #2B68AD; 
+            overflow: hidden;
+            position: fixed; /* Set the navbar to fixed position */
+            top: 0; /* Position the navbar at the top of the page */
+            width: 100%; /* Full width */
+            z-index: 2;
+        }
+        .transaction {
+            margin : 20px; 
+        }
+        #name {
+            margin : 20px auto; 
+        }
+        table, th, td {
+                 border: 1px solid black;
+                 padding : 5px; 
+                 text-align: center;
+        }
+        th {
+            color: red;
+        }
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 56px;
+            background-color: #2B68AD; 
+            color:#007bff;
+            font-size: 1.5rem;
+            font-weight: bolder;
+            text-align: center;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <nav class = "navbar">
+        <a class = "navbar-brand" href="#"> Full Auth </a>
+        <form class="form-inline mr-sm-2">
+            <a href="<%= process.env.SITE_NAME %> /login">Log In</a>
+            <a class="ml-2" href="<%= process.env.SITE_NAME %> /register">Sign Up</a>
+        </form>
+    </nav>
+    <div class = "container-fluid">
+        <h3 id="name" style = "margin : 60px auto 10px auto">  <%= name %> </h3> 
+    </div>
+    <div class="row"> 
+        <div class="col-lg-6 col-md-6 col-sm-12" style= "border:1px solid; padding:30px;">
+            Log into the website by any Signin method.
+            Type random values in the form below/beside and click pay. 
+            Then close the page and revisit/reload the page.
+            Then click on Get History. 
+            You will be able to view your all previous transactions. 
+            This is just a demo to show that login was legit. 
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12" style= "border:1px solid;">
+            <form class="transaction">
+                <div class="form-group row">
+                    <label for="product_name" class="col-sm-3 col-form-label">Product name</label>
+                    <div class="col-sm-9">
+                    <input type="text" class="form-control" id="product_name" placeholder="Enter random value">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="product_id" class="col-sm-3 col-form-label" >Product ID</label>
+                    <div class="col-sm-9">
+                    <input type="text" class="form-control" id="product_id" placeholder="Enter random value">
+                    </div>     
+                </div>
+                <div class="form-group row">
+                    <label for="product_price" class="col-sm-3 col-form-label">Product price</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="product_price" placeholder="Enter random value">
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-block" id="postpay" type = "button"> Pay </button> <br>
+                <div id="postpaymsg"> </div>
+            </form>
+        </div>
+    </div>
+    <button class="btn btn-primary btn-block" style="margin:10px auto;" id="getpay" type = "button"> Get Transaction History </button> <br>
+    <div id="details" style="margin-left: 30%;margin-bottom: 60px;"> </div> 
+    <footer>
+        <a id="logout">Sign out</a> 
+    </footer>
+    <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+    <script src="home.js"></script>
+</body>
+</html>

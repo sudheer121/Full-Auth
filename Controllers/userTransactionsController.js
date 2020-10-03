@@ -9,6 +9,14 @@ module.exports = {
     // adds payment details to database 
     addPayment : function(req,res) {
 
+        if(req.message) {
+            res.json({
+                success : 0,
+                message : req.message
+            });
+            return; 
+        }
+
         var email = req.decode.resultdata.email;
         var data = req.body;
         getUserByEmail(email).
@@ -38,6 +46,15 @@ module.exports = {
     },
 
     getTransactions : function(req,res) {
+
+        if(req.message) {
+            res.json({
+                success : 0,
+                message : req.message
+            });
+            return; 
+        }
+
         const email = req.decode.resultdata.email;  
         getUserByEmail(email)
         .then((result)=>{

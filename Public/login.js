@@ -17,19 +17,23 @@ function validateForm() {
         var x = $("#" + el).val(); 
         if (x === null || x === "") {
             $("#" + el + "_error").html("This field can't be empty");
+            $("#" + el).css({"margin-bottom":"0px"});
             ++errorCount;
         } else  {
             $("#" + el + "_error").html("");
+            $("#" + el).css({"margin-bottom":"10px"});
         }
     });
 
     regex = /\S+@\S+\.\S+/;
     if(a!=null && a.length!=0 && !regex.test(a)) {
         $('#email_error').html("Please enter a valid email");
+        $("#email").css({"margin-bottom":"0px"});
         ++errorCount;
     } 
     if(b!=null && b.length!=0 && b.length < 8) {
         $('#password_error').html("Password is not valid");
+        $("#password").css({"margin-bottom":"0px"});
         ++errorCount;
     } 
     if (errorCount) return 0;

@@ -21,6 +21,8 @@
     font-size: 16px;
 }
 #logreg-forms .form-control:focus { z-index: 2; }
+
+/*
 #logreg-forms .form-signin input[type="email"] {
     margin-bottom: -1px;
     border-bottom-right-radius: 0;
@@ -30,6 +32,7 @@
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
+*/
 
 #logreg-forms .social-login{
     width:390px;
@@ -65,30 +68,35 @@
 
 #logreg-forms .facebook-btn{  background-color:#3C589C; }
 
+#logreg-forms .form-reset { display: none; }
 
-#logreg-forms .guest-btn{ background-color: #026719;}
-
-#logreg-forms .form-reset, #logreg-forms .form-signup{ display: none; }
-
-#logreg-forms .form-signup .social-btn{ width:210px; }
-
-#logreg-forms .form-signup input { margin-bottom: 2px;}
 
 .form-signup .social-login{
     width:210px !important;
     margin: 0 auto;
 }
 
+input:invalid {
+    background-color: #ffdddd;
+}
+
+.error {
+    font-size : 0.7rem; 
+}
+
 /* Registration Page */
 
-#first_name, #last_name,#first_name_error,#last_name_error {
+#first_name, #last_name {
     display: inline-block;
     width: 49.3%;
 }
 
-.error {
-    font-size : 0.8rem; 
+
+
+input {
+    margin-bottom : 10px; 
 }
+
 /* Mobile */
 @media screen and (max-width:500px){
     #logreg-forms{
@@ -123,7 +131,7 @@
 
 /* Mobile Register*/
 @media screen and (max-width:500px){ 
-#first_name, #last_name, #first_name_error,#last_name_error {
+#first_name, #last_name {
     display : block;
     width : 100%; 
 }

@@ -9,37 +9,37 @@ var cookieParser = require("cookie-parser");
 
 
 const userRouter = require("./Routes/user.router"); 
-
+const home = require("./Routes/onHome"); 
 
 const fs = require('fs'); // for ssl certificate 
 
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/Public'));
-app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'html');
-app.set('views', __dirname);
 
-//app.use(express.json()); //convert json object to js object
+/*
+app.set('views', __dirname + "/Views"); // views folder 
+//app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html'); 
+*/
+app.set('view engine', 'ejs'); 
+
+
 app.use("/api",userRouter); 
+app.use("/", home);
 
 
-app.get("/", function(req, res){
- 
-  res.render(__dirname + '/home.html'); 
-});
 
 // Authentication/Login 
 app.get("/login", function(req, res){
-  //console.log('Cookies: /login :', req.cookies['grishmat']);
-  res.render(__dirname + '/login.html'); 
+  res.render('login',{}); 
 });
 
 app.get("/register", function(req, res){
-  res.render(__dirname + '/register.html'); 
+  res.render('register',{}); 
 });
 
-https.createServer({
+https.createServer({ 
   key: fs.readFileSync('./key.pem'),
   cert: fs.readFileSync('./cert.pem'),
   passphrase: 'Tripathi31'

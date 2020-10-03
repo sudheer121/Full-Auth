@@ -3,34 +3,46 @@ expdate.setDate(expdate.getDate() + 7);
 const loginPage = SITE_NAME + "/login";
 
 function validateForm() {
-    
+    /*
+    Damn this was hectic 
+    */
     var errorCount = 0; 
     var fields = ['first_name','last_name','email','password','confirm_password'];
     var a = $('#email').val(); 
     var b = $('#password').val(); 
     var c = $('#confirm_password').val(); 
     fields.forEach(function(el) {
-        console.log("#"+el); 
         var x = $("#" + el).val(); 
-        console.log(x); 
         if (x === null || x === "") {
-            $("#" + el + "_error").html("This field can't be empty");
+            if(fields.indexOf(el) < 3) {
+                $("#" + "email_error").html("Above field(s) can't be empty");
+                $("#email").css({"margin-bottom":"0px"});
+            } else { 
+                var s = '#' + el; 
+                $("#" + el + "_error").html("This field can't be empty");
+                $(s).css({"margin-bottom":"0px"}); 
+            }
             ++errorCount;
+        }  else   { 
+            $("#" + el + "_error").html(""); 
+            $("#" + el).css({"margin-bottom":"10px"}); 
         }
-        else  $("#" + el + "_error").html("");
     });
 
     regex = /\S+@\S+\.\S+/;
     if(a!=null && a.length!=0 && !regex.test(a)) {
         $('#email_error').html("Please enter a valid email");
+        $("#email").css({"margin-bottom":"0px"});
         ++errorCount;
     } 
     if(b!=null && b.length!=0 && b.length < 8) {
         $('#password_error').html("Password too small, should be atleast 8 characters long");
+        $("#password").css({"margin-bottom":"0px"});
         ++errorCount;
     } 
     if(c.length>0 && b!=c) {
         $('#confirm_password_error').html("Passwords don't match");
+        $("#confirm_password").css({"margin-bottom":"0px"});
         ++errorCount;
     } 
     if (errorCount) return 0;
@@ -69,21 +81,3 @@ $("#main_register").bind("click", function(){
         }); 
     }
 }); 
-
-// Arranging some html according to screen width
-function checkSmallDevice() {
-    if( screen.width <= 500) {
-        console.log("Here"); 
-        $('#first_name_error').remove();
-        $('#first_name').after('<span class="error"><p id="first_name_error"></p></span>');
-        $('#last_name_error').remove();
-        $('#last_name').after('<span class="error"><p id="last_name_error"></p></span>');
-    }
-    else {
-        var x = $('#first_name_error').html(); 
-        $('#first_name_error').remove();
-        $('#last_name_error').before('<span class="error"><p id="first_name_error">' + x +'</p></span>');
-    }
-}
-$(document).ready(checkSmallDevice); 
-$(window).on('resize',checkSmallDevice);
