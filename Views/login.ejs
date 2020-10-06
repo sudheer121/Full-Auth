@@ -2,13 +2,16 @@
 
     <!-- required CSS file -->
     <link rel="stylesheet" href="/login.css">
-    <title>Grishma Foods</title>
-
+    <title>Full Auth</title>
+    
 </head>
 <body>
     <script src="fbSignIn.js"> </script>
     <script src="googleSignIn.js"> </script>
     <div id="logreg-forms">
+            <div id = "logo"> 
+                <a href="<%=process.env.SITE_NAME%>"> Full Auth </a>
+            </div>
             <form   class="form-signin">
             <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"> Sign in </h1>
             <div class="social-login"> 
@@ -31,6 +34,11 @@
             <button class="btn btn-primary btn-block" type="button" id="btn-signup"><i class="fas fa-user-plus"></i> Sign up New Account</button>
         </form>   
     </div>
+    <script>
+        $('#btn-signup').bind("click",function(){
+            window.location.replace('<%= process.env.SITE_NAME %>/register');
+        }); 
+    </script>
     <script src="login.js"> </script>
     <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 </body>

@@ -10,3 +10,13 @@ const pool = createPool({
 })
 
 module.exports = pool; 
+
+
+/*
+Table 
+
+registration(uid,email,password,first_name,last_name,phone_no,signin_type)
+
+transactions(uid,pname,pid,pprice,tdate,ttime)
+
+*/

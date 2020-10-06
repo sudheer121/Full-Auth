@@ -1,3 +1,7 @@
+/*
+    Handles /api/register 
+*/
+
 var express = require('express');
 const router = express.Router(); 
 
@@ -7,7 +11,10 @@ const {
     createUser
 } = require("../Controllers/userRegisterController"); 
 
-router.post("/register",createUser); // 
-router.post("/login", login); // 
+router.get("/register", (req, res) => {
+  res.render('register',{}); 
+});
 
-moduler.exports = router  
+router.post("/register",createUser); 
+
+module.exports = router  

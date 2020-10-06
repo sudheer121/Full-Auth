@@ -1,13 +1,12 @@
 
-// Google Sign Out 
-// const client_id_ = '244496231967-2jf7lel0i19vb0uo8moaf63uet2e28ks.apps.googleusercontent.com';
+// client_id_ in header.ejs 
 function init() {
     gapi.load('auth2', function() {
         /* Ready. Make a call to gapi.auth2.init or some other API */
         gapi.auth2.init({
                 client_id: client_id_
         }) 
-        //gapi.auth2.
+        
     });
 }
 
@@ -22,7 +21,7 @@ function signOut()
 // FB sign out
 window.fbAsyncInit = function() {
     FB.init({
-        appId      : '750362455545843',
+        appId      : fb_app_id_,  /* Fb app id is already on top */ 
         cookie     : true,
         xfbml      : true,
         version    : 'v8.0'
@@ -59,14 +58,17 @@ function getCookie(name) {
       let [k,v] = el.split('=');
       cookie[k.trim()] = v;
     })
-    console.log("I got it " + cookie[name]);
+    //console.log("I got it " + cookie[name]);
     return cookie[name];
 }
 
 $('#postpay').click(function(){
+    
+    if( $('#product_name').val() === "" || $('#product_id').val() === "" || $('#product_price').val() === "" ) {
+        console.log(" All fields are required ");
+        return; 
+    }
     var x = getCookie('grishmat');
-    //var a = 
-    //console.log($('#product_name').val + " " +  $('#product_id').val  + " " + $('#product_price').val); 
     $.ajax({
         url: SITE_NAME + '/api/pay',
         type: 'post',
@@ -83,7 +85,7 @@ $('#postpay').click(function(){
         success : function(json) {
             const str = "<pre style='color:green;'>" + json.message + "<pre>";
             $('#postpaymsg').hide().html(str).fadeIn(1000).delay(1000).fadeOut(2000) ;
-            console.log(json); 
+            //console.log(json); 
         }  
     });
 });
@@ -126,15 +128,6 @@ function printDetails(resultArr){
         $("#details table").hide().append(str).fadeIn(1000); 
     }
     
-    /*
-    var children = document.querySelector("#details table tbody").children;
-    for (var i = 0; i < children.length; i++) {
-    var tableChild = children[i];
-    console.log(tableChild)
-    children[i].fadeIn(i*1000);
-    // Do stuff
-    }
-    */
 }
 
 $('#logout').click(function(){  //logs you out 

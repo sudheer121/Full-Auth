@@ -57,7 +57,7 @@ $("#main_register").bind("click", function(){
     if(flag === 1)
     {
         $.ajax({
-            url: SITE_NAME + '/api/register',  
+            url: SITE_NAME + '/register',  
             type: 'post',
             data: JSON.stringify({ 
               email: $('#email').val(),

@@ -1,11 +1,14 @@
 <%- include('partials/header') %>
     <!-- required CSS file -->
-    <title>Grishma Foods Registration</title>
+    <title>Full Auth</title>
 </head>
 <body>
     <script src="fbSignIn.js"> </script>
     <script src="googleSignIn.js"> </script>
     <div id="logreg-forms">
+        <div id = "logo"> 
+            <a href="<%=process.env.SITE_NAME%>"> Full Auth </a>
+        </div>
         <form   class="form-signin"> 
             <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"> Sign Up </h1>
             <div class="social-login"> 

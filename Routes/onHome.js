@@ -1,3 +1,7 @@
+/*
+    path : / 
+*/
+
 const {
     onHome
 } = require("../Controllers/userOnHomepageController");

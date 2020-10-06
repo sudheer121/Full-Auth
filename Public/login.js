@@ -1,12 +1,6 @@
 var expdate = new Date();
 expdate.setDate(expdate.getDate() + 7);
-const registerPage = "http://localhost:3000/register";
 
-$('#btn-signup').bind("click",function(){
-    window.location.replace(registerPage);
-})
-
-// validates the login form
 function validateForm() {
 
     var errorCount = 0; 
@@ -45,7 +39,7 @@ $("#main_login").bind("click", function(){
     if(validateForm()) {
         
         $.ajax({
-            url: SITE_NAME + '/api/login',  
+            url: SITE_NAME + '/login',  
             type: 'post',
             data: JSON.stringify({ 
               email: $('#email').val(),
