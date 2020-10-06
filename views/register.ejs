@@ -1,0 +1,43 @@
+<%- include('partials/header') %>
+    <!-- required CSS file -->
+    <title>Full Auth</title>
+</head>
+<body>
+    <script src="fbSignIn.js"> </script>
+    <script src="googleSignIn.js"> </script>
+    <div id="logreg-forms">
+        <div id = "logo"> 
+            <a href="<%=process.env.SITE_NAME%>"> Full Auth </a>
+        </div>
+        <form   class="form-signin"> 
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"> Sign Up </h1>
+            <div class="social-login"> 
+                <div id="my-signin2" ></div>
+                <button id="fbsignin" class="btn facebook-btn social-btn" type="button"><span><i class="fab fa-facebook-f"></i> Sign in with Facebook</span> </button>
+            </div>
+            <p style="text-align:center"> OR  </p>
+            
+            <input type="text" id="first_name" class="form-control" placeholder="First Name" required="" autofocus="">
+            <input type="text" id="last_name" class="form-control " placeholder="Last name" required="" >
+            
+
+            <input type="email" id="email" class="form-control" placeholder="Email address" required>
+            <span class="error" id="email_error"></span>
+                
+            <input type="password" id="password" pattern=".{8,}" class="form-control" placeholder="Password" required>
+            <span class="error" id="password_error"></span>
+
+            <input type="password" id="confirm_password" pattern=".{8,}" class="form-control"  placeholder="Repeat Password" required>
+            <span class="error" id="confirm_password_error"></span>
+            
+            <button id="main_register" class="btn btn-primary btn-block" type="button"><i class="fas fa-user-plus"></i> Sign Up</button>
+            <span class="error" id="register_error"></span>
+        </form>            
+        <br>
+            
+    </div>
+    <link rel="stylesheet" href="/login.css">
+    <script src="register.js"> </script>
+    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+</body>
+</html>
