@@ -18,6 +18,7 @@
     "ejs": "^3.1.5",
     "express": "^4.17.1",
     "google-auth-library": "^6.0.6",
+    "gtoken": "^5.0.4",
     "https": "^1.0.0",
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1"
