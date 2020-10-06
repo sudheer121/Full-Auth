@@ -5,7 +5,7 @@ const pool = createPool({
     host: "localhost",
     user: "root",
     password: "password",
-    database: "grishma_db1",
+    database: "grishma_db1",  //database name 
     connectionLimit: 100 
 })
 
@@ -13,7 +13,7 @@ module.exports = pool;
 
 
 /*
-Table 
+2 Tables in grishma_db1 
 
 registration(uid,email,password,first_name,last_name,phone_no,signin_type)
 

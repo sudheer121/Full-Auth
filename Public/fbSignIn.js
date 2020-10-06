@@ -11,11 +11,7 @@ FB.init({
 FB.AppEvents.logPageView();  
 
 fbLoginStatus(); // automatic login try; 
-/*
-Continue here 
-https://stackoverflow.com/questions/58325442/the-method-fb-getloginstatus-can-no-longer-be-called-from-http-pages
-https://developers.facebook.com/community/threads/321473025465532/
-*/
+ 
 $("#fbsignin").bind("click",()=>{
     fbLogin(); 
 });
@@ -80,6 +76,7 @@ function getUserInfo(userId,accessToken) {
                     $("#fbsignin span").html("<span><i class='fab fa-facebook-f'></i> Signed In");
                 }
                 console.log(json.message); 
+                window.location.replace(SITE_NAME);
             }
         }); 
     }
@@ -90,7 +87,7 @@ function getUserInfo(userId,accessToken) {
 
 function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
     console.log('statusChangeCallback');
-    console.log(response);                   // The current login status of the person.
+    //console.log(response);                   // The current login status of the person.
     if (response.status === 'connected') {   // Logged into your webpage and Facebook.
        getUserInfo(response.authResponse.userID,response.authResponse.accessToken);
     } else {                                 // Not logged into your webpage or we are unable to tell.

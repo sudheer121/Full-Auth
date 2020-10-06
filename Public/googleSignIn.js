@@ -1,7 +1,6 @@
 
-// client_id_ is put in header 
-// const client_id_ = '244496231967-2jf7lel0i19vb0uo8moaf63uet2e28ks.apps.googleusercontent.com';
-
+// client_id_ is put in header.ejs 
+ 
 function onSuccess(googleUser) {
         var id_token_ = googleUser.getAuthResponse().id_token;
         var profile = googleUser.getBasicProfile();
@@ -24,8 +23,8 @@ function onSuccess(googleUser) {
             contentType: "application/json",
             dataType: 'json',
             success: function(json) {  
-
                 console.log(json.message); 
+                window.location.replace(SITE_NAME);
             }
         }); 
 }

@@ -50,6 +50,7 @@ $("#main_login").bind("click", function(){
             success: function(jsonobj) {        
                 if(jsonobj.success===1) {   
                     $('#login_message').html("Logged in successfully") ;     
+                    window.location.replace(SITE_NAME);
                 } else {
                     $('#login_message').html(jsonobj.message);
                 }
@@ -62,7 +63,7 @@ $("#main_login").bind("click", function(){
 
 /*
 
-// For reset password feature
+// For reset password feature :( not using as of now 
 
 function toggleResetPswd(e){
     e.preventDefault();
@@ -75,4 +76,5 @@ $(()=>{
     $('#logreg-forms #forgot_pswd').click(toggleResetPswd);
     $('#logreg-forms #cancel_reset').click(toggleResetPswd);
 })
+
 */ 

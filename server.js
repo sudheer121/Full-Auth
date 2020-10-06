@@ -3,7 +3,7 @@
 require('dotenv').config();
 var express = require('express');
 var app = express();
-var bodyParser = require('body-parser');
+//var bodyParser = require('body-parser');
 const https = require('https');
 var cookieParser = require("cookie-parser");
 
@@ -30,11 +30,8 @@ app.use("/",register);
 app.use("/api",oAuthSignIn); 
 app.use("/api",paymentRoutes); 
 
+app.listen(process.env.PORT || 3000,function(){
+  console.log("Server running on post 3000"); 
+});
 
-https.createServer({ 
-  key: fs.readFileSync('./key.pem'),
-  cert: fs.readFileSync('./cert.pem'),
-  passphrase: 'Tripathi31'
-}, app)
-.listen(3000);
 
