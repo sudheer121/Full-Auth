@@ -111,13 +111,15 @@ $('#logout').click(function(){  //logs you out
     var expdate = new Date()
     expdate.setDate(expdate.getDate() - 1);
     document.cookie = "grishmat=" + ";expires=" + expdate.toUTCString() + ";"; //grishmat is jwt token 
+    
     fbLogout();
-    try {
-        signOut();  //signs out of google 
-        fbLogout(); //signs out of facebook
-    } catch(err) {
-      console.log("All good "); 
-    }
+    signOut();
+    // try {
+    //     signOut();  //signs out of google 
+    //     fbLogout(); //signs out of facebook
+    // } catch(err) {
+    //   console.log("All good "); 
+    // }
     
     //window.location.replace(SITE_NAME);
 });
