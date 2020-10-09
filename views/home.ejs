@@ -3,11 +3,11 @@
     <style>
         body {
             margin: 0px; 
-            padding: 0px; 
             /* background-color: #57A3FA;  */
             color : #2B68AD;
             font-family: sans-serif;
             text-align: center;
+            padding-bottom:60px;
         }
         .navbar {
             background-color: #2B68AD; 
@@ -33,7 +33,11 @@
         #name {
             margin : 20px auto; 
         }
-        table, th, td {
+        #details {
+            width:100%;
+            overflow: scroll;
+        }
+        /* table, th, td {
                  margin-left: auto;
                  margin-right: auto; 
                  margin-bottom : 60px; 
@@ -44,7 +48,7 @@
         }
         th {
             color: red;
-        }
+        } */
         footer { 
             position: fixed;
             bottom: 0;
@@ -64,7 +68,7 @@
 </head>
 <body>
     <nav class = "navbar">
-        <a class = "navbar-brand" href="#"> Full Auth </a>
+        <a class = "navbar-brand" href="/"> Full Auth </a>
         <form class="form-inline mr-sm-2">
             <a href="<%= process.env.SITE_NAME %>/login">Log In</a>
             <a class="ml-2" href="<%= process.env.SITE_NAME %>/register">Sign Up</a>
@@ -78,8 +82,9 @@
             Log into the website by any Signin method.
             Type random values in the form below/beside and click pay. 
             Then close the page and revisit/reload the page.
-            Then click on Get History. 
+            Then click on Get Transaction History. 
             You will be able to view your all previous transactions. 
+            The website keeps you logged in for 7 days. 
             This is just a demo to show that login was legit. 
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12" style= "border:1px solid;">
@@ -107,12 +112,12 @@
             </form>
         </div>
     </div>
-    <button class="btn btn-primary btn-block" style="margin:10px auto; margin-bottom: 40px;" id="getpay" type = "button"> Get Transaction History </button> <br>
+    <button class="btn btn-primary btn-block" style="margin:10px auto; margin-bottom: 10px;" id="getpay" type = "button"> Get Transaction History </button> <br>
     <div id="details"> </div> 
     <footer>
         <a id="logout">Sign out</a> 
     </footer>
     <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
-    <script src="home.js" defer></script>
+    <script src="home.js"></script>
 </body>
 </html>

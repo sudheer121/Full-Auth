@@ -67,11 +67,14 @@ module.exports = {
         .then((result)=>{
             
             // result is an array of objects 
+            res.render('transactionsTable',{resultArr:result});
+            /*
             res.json({
                 success : 1,
                 message : "Fetch successful",
                 data : result 
             });
+            */
         })
         .catch((err)=>{
             console.log("Error " + err); 

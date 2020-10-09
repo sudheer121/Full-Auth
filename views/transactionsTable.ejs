@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table</title>
+    <style>
+        table, th, td,  caption {
+                 margin-left: auto;
+                 margin-right: auto; 
+                 border: 1px solid black;
+                 text-align: center;
+        }
+        caption {
+            border-bottom: none;
+        }
+        th {
+            color: red;
+        }
+        p {
+            color:green;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <% if( resultArr.length > 0 ) { %> 
+        <caption>All transactions so far</caption>
+        <table>
+            <tr>
+                <th> Time </th>
+                <th> Date </th>
+                <th> Product Name </th>
+                <th> Producut ID </th>  
+                <th> Product Price</th>
+            </tr> 
+            <% for(var i=0;i < resultArr.length;i++ ) { %> 
+            <% const obj = resultArr[i];  %> 
+            <tr>
+                <td> <%= obj.ttime %> </td>
+                <td> <%= obj.tdate %> </td>
+                <td> <%= obj.pname %> </td>
+                <td> <%= obj.pid %> </td>
+                <td> <%= obj.pprice %> </td>
+            </tr>
+            <% } %> 
+        </table>
+    <%  } else {  %>
+        <p> No transactions so far </p>
+    <%  }  %> 
+</body>
+</html>

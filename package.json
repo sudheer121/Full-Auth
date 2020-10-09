@@ -21,6 +21,6 @@
     "gtoken": "^5.0.4",
     "https": "^1.0.0",
     "jsonwebtoken": "^8.5.1",
-    "mysql": "^2.18.1"
+    "sqlite3": "^5.0.0"
   }
 }

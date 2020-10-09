@@ -15,6 +15,7 @@ function signOut()
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
     console.log('User signed out of google.');
+    window.location.replace(SITE_NAME);
     });
 }
 
@@ -48,9 +49,9 @@ window.fbAsyncInit = function() {
 function fbLogout() {
     FB.logout(function(response) {
         console.log("Logged out of facebook")
-     });
+        window.location.replace(SITE_NAME);
+    });
 }
-
 
 function getCookie(name) {
     let cookie = {};
@@ -92,46 +93,16 @@ $('#postpay').click(function(){
 $('#getpay').click(function(){  //get history
     var x = getCookie('grishmat'); 
     if(x == undefined || x==null) return; 
-    $.ajax({
-        url: SITE_NAME + '/api/pay',
-        type: 'get',
-        contentType: "application/json",
-        dataType: 'json',
-        xhrFields: {  //setting this is very important as cookies won't be send otherwise
-        withCredentials: true
-        },
-        success : function(json) {
-            //console.log(json); 
-            printDetails(json.data); 
-        }
-    });
+    $("#details").load( `${SITE_NAME}/api/pay`);
 });
-
-function printDetails(resultArr){ 
-    if(resultArr.length===0 || resultArr === undefined || resultArr === null) {
-        $("#details").html("<p>No transactions so far</p>");
-        return; 
-    }
-    $("#details").html("<table><tr><th> Time </th><th> Date </th><th> Product Name </th><th> Producut ID </th>  <th> Product Price</th></tr> </table>");
-    var x = '<td>'; var y = '</td>';
-    var str; 
-    var prev = 0; 
-    for(var i=0;i<resultArr.length;i++)
-    {
-        const obj = resultArr[i]; 
-        str =  x + obj.ttime + y; 
-        str += x + obj.tdate + y; 
-        str += x + obj.pname + y;
-        str += x + obj.pid + y;
-        str += x + obj.pprice + y; 
-        str = '<tr>' + str + '</tr>';  
-        $("#details table").hide().append(str).fadeIn(1000); 
-    }
-    
-}
 
 $('#logout').click(function(){  //logs you out 
     
+    //clears cookie 
+    var expdate = new Date()
+    expdate.setDate(expdate.getDate() - 1);
+    document.cookie = "grishmat=" + ";expires=" + expdate.toUTCString() + ";"; //grishmat is jwt token 
+
     try {
         signOut();  //signs out of google 
         fbLogout(); //signs out of facebook
@@ -139,10 +110,6 @@ $('#logout').click(function(){  //logs you out
       console.log("All good "); 
     }
     
-    //clears cookie 
-    var expdate = new Date()
-    expdate.setDate(expdate.getDate() - 1);
-    document.cookie = "grishmat=" + ";expires=" + expdate.toUTCString() + ";"; //grishmat is jwt token 
-    window.location.replace(SITE_NAME);
-    
+    //window.location.replace(SITE_NAME);
 });
+
