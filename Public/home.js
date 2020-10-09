@@ -15,7 +15,12 @@ function signOut()
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
     console.log('User signed out of google.');
-    window.location.replace(SITE_NAME);
+    
+    if (screen.width <= 699) {
+        document.location = SITE_NAME;
+    } else {
+        window.location.replace(SITE_NAME);
+    }
     });
 }
 
@@ -49,7 +54,11 @@ window.fbAsyncInit = function() {
 function fbLogout() {
     FB.logout(function(response) {
         console.log("Logged out of facebook")
-        window.location.replace(SITE_NAME);
+        if (screen.width <= 699) {
+            document.location = SITE_NAME;
+        } else {
+            window.location.replace(SITE_NAME);
+        }
     });
 }
 
