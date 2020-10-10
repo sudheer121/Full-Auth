@@ -9,7 +9,7 @@
   > This is an auth module built with nodejs.It's currently delployed here.The code is modularized and will be helpful for anyone looking into exploring the below mentioned technologies, learning OAuth or MVC architecture in nodejs.  
   > Have a look at https://full-auth.herokuapp.com.
   
-<h3> Tech Stack Tools </h3>
+<h3> Tech Stack / Tools </h3>
   
   <img alt="Nodejs" src="https://img.shields.io/badge/Nodejs-brigthgreen?style=plastic&logo=Node.js" />
   
