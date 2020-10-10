@@ -97,11 +97,11 @@ $('#postpay').click(function(){
             //console.log(json); 
         }  
     });
-});
+}); 
 $('#getpay').click(function(){  //get history
     var x = getCookie('grishmat'); 
     if(x == undefined || x==null) return; 
-    $('#getpay').append('<i class="fas fa-arrow-down"></i>')
+    $('#getpay i').css({"color":"LawnGreen"});
     $("#details").load( `${SITE_NAME}/api/pay`);
     $('#getpay').css({"margin-bottom":"5px"});
 });
