@@ -101,7 +101,9 @@ $('#postpay').click(function(){
 $('#getpay').click(function(){  //get history
     var x = getCookie('grishmat'); 
     if(x == undefined || x==null) return; 
+    $('#getpay').append('<i class="fas fa-arrow-down"></i>')
     $("#details").load( `${SITE_NAME}/api/pay`);
+    $('#getpay').css({"margin-bottom":"5px"});
 });
 
 $('#logout').click(function(){  //logs you out 
