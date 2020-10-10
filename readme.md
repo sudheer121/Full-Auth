@@ -51,7 +51,7 @@ Change filename .env.example to .env
 
 > uid => user id, pname => product name 
 
-> MySQL database can also be used instead of SQLite, nodejs mysql queries are commented below SQLite queries. 
+MySQL database can also be used instead of SQLite, nodejs mysql queries are commented below SQLite queries. 
 
 <h4> Api Routes </h4> 
  
@@ -70,10 +70,11 @@ Change filename .env.example to .env
  
  <h3> Helpful resources for learners </h3> 
  
- > Learn about JWT <a href = "https://stackabuse.com/authentication-and-authorization-with-jwts-in-express-js"> here </a>
+ Learn about JWT <a href = "https://stackabuse.com/authentication-and-authorization-with-jwts-in-express-js"> here </a>
  
- > Learn about integrating Google Signin <a href="https://developers.google.com/identity/sign-in/web/sign-in"> here </a> 
+ Learn about integrating Google Signin <a href="https://developers.google.com/identity/sign-in/web/sign-in"> here </a> 
  
- > Learn about integrating Facebook Signin <a href="https://developers.facebook.com/docs/facebook-login/web/"> here </a>  
+ Learn about integrating Facebook Signin <a href="https://developers.facebook.com/docs/facebook-login/web/"> here </a>  
+ 
  
  
