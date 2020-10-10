@@ -62,3 +62,15 @@ Change filename .env.example to .env
  
  ```
  > <h3> Issues and PRs are welcome </h3> 
+ 
+ <hr>
+ 
+ <h3> Helpful resources for learners </h3> 
+ 
+ > Learn about JWT <a src="https://stackabuse.com/authentication-and-authorization-with-jwts-in-express-js"> here </a>
+ 
+ > Learn about integrating Google Signin <a href="https://developers.google.com/identity/sign-in/web/sign-in"> here </a> 
+ 
+ > Learn about integrating Facebook Signin <a href="https://developers.facebook.com/docs/facebook-login/web/"> here </a>  
+ 
+ 
