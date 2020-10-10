@@ -51,6 +51,8 @@ Change filename .env.example to .env
 
 > uid => user id, pname => product name 
 
+> MySQL database can also be used instead of SQLite, nodejs mysql queries are commented below SQLite queries. 
+
 <h4> Api Routes </h4> 
  
  ```
