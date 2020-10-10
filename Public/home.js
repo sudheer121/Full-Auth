@@ -1,4 +1,4 @@
-
+var auth2;
 // client_id_ in header.ejs 
 function init() {
     gapi.load('auth2', function() {
@@ -6,7 +6,8 @@ function init() {
         gapi.auth2.init({
                 client_id: client_id_
         }) 
-        
+        auth2 = gapi.auth2.getAuthInstance();
+        console.log(auth2); 
     });
 }
 
