@@ -1,13 +1,11 @@
-var auth2;
+
 // client_id_ in header.ejs 
 function init() {
-    gapi.load('auth2', function() {
+    window.gapi.load('client:auth2', function() {
         /* Ready. Make a call to gapi.auth2.init or some other API */
-        gapi.auth2.init({
+        window.gapi.auth2.init({
                 client_id: client_id_
         }) 
-        auth2 = gapi.auth2.getAuthInstance();
-        console.log(auth2); 
     });
 }
 
