@@ -39,7 +39,8 @@ npm install
 node dbrunonce.js (sets up SQLite database)
   
 ```
-> Change filename .env.example to .env 
+Change filename .env.example to .env 
+
 <hr> 
 
 <h3> More Details </h3> 
@@ -60,3 +61,4 @@ node dbrunonce.js (sets up SQLite database)
  /api/pay
  
  ```
+ > <h3> Issues and PRs are welcome </h3> 
