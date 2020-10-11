@@ -64,9 +64,13 @@ MySQL database can also be used instead of SQLite, nodejs mysql queries are comm
  /api/pay
  
  ```
- > <h3> Issues and PRs are welcome </h3> 
+ <h4> Cookies </h4>
+ 
+ > The website uses a Cookie called 'grishmat'. 
+ 
  
  <hr>
+ 
  
  <h3> Helpful resources for learners </h3> 
  
@@ -78,3 +82,4 @@ MySQL database can also be used instead of SQLite, nodejs mysql queries are comm
  
  
  
+ > <h3> Issues and PRs are welcome </h3> 
